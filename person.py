@@ -6,11 +6,9 @@ class Person(ABC):
         self.email = email
         self.phone = phone
         self.id_ = id_
-        self.is_regestered = False
-        self.is_loggin = False
 
     def __str__(self):
-        return f"Name: {self.name}"
+        return f"Name: {self.name}\nEmail: {self.email}\nPhone: {self.phone}\n"
 
     @abstractmethod
     def check_role():
