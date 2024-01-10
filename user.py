@@ -18,7 +18,7 @@ class User(Person):
         return id_
 
     def reserve(self, movie, cinema_hall):
-        show_time = input("What is show time?")
+        show_time = input("What is show time? ")
 
         resv = Reservation(movie.id_, show_time, movie.total_reserves, self.email)
         if movie.id_ not in self.reservation.values() and movie.total_reserves < cinema_hall.total_seats and len(self.reservation) < 1:
@@ -40,9 +40,9 @@ class User(Person):
 
     def cancel_reserve(self, movie, cinema_hall):
         for e in cinema_hall.all_reservations:
-            if e == self.email:
+            if e == self.email and cinema_hall.all_reservations[e] == movie.title:
                 del cinema_hall.all_reservations[self.email]
-
+                                                            
                 for k, m in cinema_hall.movies.items():
                     if k == movie.id_:
                         m.total_reserves -= 1
@@ -67,12 +67,13 @@ class User(Person):
                 m.feedbacks[fb.comment] = rating
 
     def __str__(self):
-        return f"{super().__str__()}, resv = {self.reservation}"
+        return f"{super().__str__()}ID: {self.user_id}\n"
     
     @staticmethod
     def check_role():
         print("""choose between 1-n:
-1- reserve for a movie
-2- cancel a reservation
-3- feedback
-4- logout""")
+1- Reserve for a movie
+2- Cancel a reservation
+3- Feedback
+4- Display information
+5- Logout""")
