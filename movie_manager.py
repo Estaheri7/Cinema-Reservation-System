@@ -2,6 +2,10 @@ import requests
 
 class Movie:
     def __init__(self, id_, title, runtime, rating, year, description):
+        try:
+            float(rating)
+        except ValueError:
+            print("Invalid format for movie rating")
         self.id_ = id_
         self.title = title
         self.runtime = runtime
@@ -12,11 +16,12 @@ class Movie:
         self.feedbacks = {}
 
     def __str__(self):
-        return f"""\nTitle: {self.title}
+        return f"""\n{"-"*136}\nTitle: {self.title}
 RunTime: {self.runtime}, Rating: {self.rating}, Year: {self.year}
-    Description: {self.description}
-    Total reserves: {self.total_reserves}
-Feedbacks: {self.feedbacks}\n"""
+\nDescription: {self.description}
+\nTotal reserves: {self.total_reserves}
+Feedbacks: {self.feedbacks}
+{"-"*136}"""
 
 class MovieFetch:
     API_KEY = "3acfbd8a"
@@ -33,5 +38,7 @@ class MovieFetch:
                         data['Plot'])
             return movie
         else:
-            print("Nothing found!")
+            print("\nNothing found!")
             return None
+        
+
