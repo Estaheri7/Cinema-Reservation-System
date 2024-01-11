@@ -18,7 +18,7 @@ class User(Person):
         return id_
 
     def reserve(self, movie, cinema_hall):
-        show_time = input("What is show time? ")
+        show_time = input("What is showtime? ")
 
         resv = Reservation(movie.id_, show_time, movie.total_reserves, self.email)
         if movie.id_ not in self.reservation.values() and movie.total_reserves < cinema_hall.total_seats and len(self.reservation) < 1:
@@ -28,15 +28,15 @@ class User(Person):
             for k, m in cinema_hall.movies.items():
                 if k == movie.id_:
                     m.total_reserves += 1
-
+                    return f"\nSuccessfuly reserved {movie.title} for {self.email} in {cinema_hall.name}\n"
         elif len(self.reservation) >= 1:
-            print("You can have only 1 reserve for a movie each day!")
+            return "\nYou can have only 1 reserve for a movie each day!\n"
 
         elif movie.total_reserves >= cinema_hall.total_seats:
-            print("Hall is full!!!")
+            return f"\n{cinema_hall.name} is full!!!\n"
 
         else:
-            print(f"{movie.title} already reserved for {self.email}")
+            return f"\n{movie.title} already reserved for {self.email}\n"
 
     def cancel_reserve(self, movie, cinema_hall):
         for e in cinema_hall.all_reservations:
@@ -46,9 +46,9 @@ class User(Person):
                 for k, m in cinema_hall.movies.items():
                     if k == movie.id_:
                         m.total_reserves -= 1
-                        return
+                        return f"\nSuccessfuly canceled {movie.title} reservation for {self.email} in {cinema_hall.name}\n"
                     
-        print("Invalid movie")
+        return "\nInvalid movie\n"
         
 
     def feedback(self, movie, cinema_hall):
