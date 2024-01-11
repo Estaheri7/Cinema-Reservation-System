@@ -65,7 +65,7 @@ def main():
 
     while True:
         help()
-        is_login = False # declare a flag for users
+        is_login = False # declare a flag for members
         choice = input().upper()
 
         if choice == 'Q':
@@ -93,6 +93,7 @@ def main():
                         # handling if movie not found
                         try:
                             emp.add_movie(movie, hall)
+                            Movie.save_all_to_json()
                         except TypeError as e:
                             print(e)
 
