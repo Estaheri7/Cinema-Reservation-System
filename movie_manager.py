@@ -1,13 +1,17 @@
 import requests
+import json
 
 # a class to create Movie object
 class Movie:
+    movie_list = []  # Class variable to store all movie details
+
     def __init__(self, id_, title, runtime, rating, year, description):
         # handling movie rating to be float
         try:
             float(rating)
         except ValueError:
             print("Invalid format for movie rating")
+
         self.id_ = id_
         self.title = title
         self.runtime = runtime
@@ -16,6 +20,25 @@ class Movie:
         self.description = description
         self.total_reserves = 0
         self.feedbacks = {}
+
+        # Add movie details to the class variable
+        self.movie_list.append({
+            "id": self.id_,
+            "title": self.title,
+            "runtime": self.runtime,
+            "rating": self.rating,
+            "year": self.year,
+            "description": self.description
+        })
+
+    # a classmethod which adds movies to json file
+    @classmethod
+    def save_all_to_json(cls):
+        file_name = "all_movies.json"
+
+        with open(file_name, 'w') as json_file:
+            json.dump(cls.movie_list, json_file, indent=4)
+            print(f"\nAll movie details saved to {file_name}\n")
 
     def __str__(self):
         return f"""\n{"-"*136}\nTitle: {self.title}
@@ -44,5 +67,3 @@ class MovieFetch:
         else:
             print("\nNothing found!")
             return None
-        
-
