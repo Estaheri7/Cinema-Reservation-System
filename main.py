@@ -26,7 +26,11 @@ def get_details():
 
 def RorL(method, cinema_hall, person):
     if method == "register":
-        is_login = cinema_hall.add_person(person)
+        try:
+            is_login = cinema_hall.add_person(person)
+        except EmailRegisteredAlready as e:
+            print(e)
+            return False
     elif method == "log in":
         try:
             is_login = cinema_hall.log_person(person)
@@ -34,7 +38,7 @@ def RorL(method, cinema_hall, person):
             print(e)
             return False
     else:
-        print("Invalid method!")
+        print("\nInvalid method!\n")
         return False
         
     return is_login
@@ -99,7 +103,7 @@ def main():
                         is_login = hall.logout_person(emp)
 
                     else:
-                        print("Invalid option!")
+                        print("\nInvalid option!\n")
 
                 elif emp.position == "user manager":
                     emp.check_role()
@@ -107,24 +111,26 @@ def main():
                     if pick == 0:
                         continue
 
-                    if pick == 4:
+                    elif pick == 4:
                         is_login = hall.logout_person(emp)
 
                     elif pick == 1:
                         email = input("Enter user email: ")
                         user = User(name = None, email = email, phone = None, user_id = None)
                         hall.add_person(user)
+                        print(f"\nUser {user.email} added to {hall.name} successfuly!\n")
 
                     elif pick == 2:
                         email = input("Enter user email: ")
                         user = User(name = None, email = email, phone = None, user_id = None)
-                        hall.remove_user(user)
+                        msg = hall.remove_user(user)
+                        print(msg)
 
                     elif pick == 3:
                         hall.show_users()
 
                     else:
-                        print("Invalid option!")
+                        print("\nInvalid option!\n")
 
                 elif emp.position == "reserve manager":
                     emp.check_role()
@@ -155,16 +161,18 @@ def main():
                             continue
 
                         if pick == 1:
-                            user.reserve(movie, hall)
+                            msg = user.reserve(movie, hall)
+                            print(msg)
 
                         elif pick == 2:
-                            user.cancel_reserve(movie, hall)
-                        
+                            msg = user.cancel_reserve(movie, hall)
+                            print(msg)
+
                         else:
-                            print("Invalid option!")
+                            print("\nInvalid option!\n")
                             
                     else:
-                        print(f"{email} does not exist in Hall")
+                        print(f"\n{email} does not exist in {hall.name}\n")
 
                 else:
                     hall.logout_person(emp)
@@ -197,14 +205,15 @@ def main():
                     flag = True
                     for m in hall.movies:
                         if movie.id_ == m:
-                            user.reserve(movie, hall)
-                            print(user.reservation)
+                            msg = user.reserve(movie, hall)
+                            print(msg)
                             flag = False
                     if flag:
                         print(f"{title} does not exist in {hall.name}")
 
                 elif pick == 2:
-                    user.cancel_reserve(movie, hall)
+                    msg = user.cancel_reserve(movie, hall)
+                    print(msg)
 
                 elif pick == 3:
                     user.feedback(movie, hall)
@@ -212,8 +221,6 @@ def main():
                     print("Invalid option!")
         else:
             print("Invalid command!")
-
-
 
 if __name__ == "__main__":
     main()
