@@ -84,8 +84,8 @@ class User(Person):
     @staticmethod
     def check_role():
         print("""choose between 1-n:
-1- Reserve for a movie
-2- Cancel a reservation
-3- Feedback
-4- Display information
-5- Logout""")
+    1- Reserve for a movie
+    2- Cancel a reservation
+    3- Feedback
+    4- Display information
+    5- Logout""")
