@@ -19,21 +19,23 @@ class Employee(Person):
     def add_movie(self, movie, cinema_hall):
 
         if not isinstance(movie, Movie):
-            raise TypeError("Invalid movie! Expected a movie but got none!\n")
+            raise TypeError("\nInvalid movie! Expected a movie but got none!\n")
 
         if movie.id_ not in cinema_hall.movies:
             cinema_hall.movies[movie.id_] = movie
+            print(f"\n{movie.title} added to {cinema_hall.name} successfuly!\n")
         else:
-            print(f"{movie.title} already exists in {cinema_hall.name} movies!")
+            print(f"\n{movie.title} already exists in {cinema_hall.name} movies!\n")
 
     def remove_movie(self, movie, cinema_hall):
         if not isinstance(movie, Movie):
-            raise TypeError("Invalid movie! Expected a movie but got none!\n")
+            raise TypeError("\nInvalid movie! Expected a movie but got none!\n")
             
         if movie.id_ in cinema_hall.movies:
             del cinema_hall.movies[movie.id_]
+            print(f"\n{movie.title} removed from {cinema_hall.name} successfuly!\n")
         else:
-            print("Movie does not exist")
+            print("\nMovie does not exist\n")
     
     def check_role(self):
         if self.position == "movie manager":
