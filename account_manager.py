@@ -7,15 +7,15 @@ class AccountManager:
     def register(self, email):
         if self.is_valid(email) and email not in self.log_accounts:
             self.log_accounts.append(email)
-            return True, "Done!"
-        return False, "Invalid email format"
+            return True, "\nDone!\n"
+        return False, "\nInvalid email format\n"
 
     def logout(self, email):
         if email in self.log_accounts:
             self.log_accounts.remove(email)
-            return True, "Successfully logged out!"
+            return True, "\nSuccessfully logged out!\n"
         else:
-            return False, "You are not logged in!"
+            return False, "\nYou are not logged in!\n"
 
     @staticmethod
     def is_valid(email):
