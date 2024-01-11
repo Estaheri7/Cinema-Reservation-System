@@ -2,6 +2,7 @@ from account_manager import *
 from error_log import *
 
 class CinemaHall:
+    # using one account_manager to manage all accounts
     account_manager = AccountManager()
 
     def __init__(self, name, total_seats):
@@ -15,7 +16,7 @@ class CinemaHall:
         self.movies = {}
 
     def show_movies(self):
-        if not self.movies:
+        if not self.movies: # check if movies is empty
             print("\nEmpty\n")
             return
         for movie in self.movies.values():
@@ -28,17 +29,18 @@ class CinemaHall:
                 print("<< " + email + " >>")
 
     def show_reserves(self):
-        if not self.all_reservations:
+        if not self.all_reservations: # check if there is no reservation
             print("\nEmpty\n")
             return
         for e, r in self.all_reservations.items():
             print(f"{e} has reserved {r}")
 
     def add_person(self, person):
+        # checking if email exists in Hall members
         if person.email in self.members['user'].values() or person.email in self.members['employee'].values():
             raise EmailRegisteredAlready(f"\nError: Email {person.email} is already registered.\n")
     
-        person_type = type(person).__name__.lower()
+        person_type = type(person).__name__.lower() # getting person's type
         can_regester, msg = CinemaHall.account_manager.register(person.email)
 
         if can_regester:
@@ -65,6 +67,7 @@ class CinemaHall:
         raise EmailNotRegistered("\nEmail does not exist! You should register first!\n")
         
     def logout_person(self, person):
+        # checking if person has registered
         if person.email in self.members['user'].values() or person.email in self.members['employee'].values():
             logout, msg = CinemaHall.account_manager.logout(person.email)
 
@@ -77,6 +80,7 @@ class CinemaHall:
         print("\nYou are not registered!\n")
         return True
 
+    # removes person from hall completly
     def remove_user(self, person):
         for v in self.members.values():
             for id_, e in v.items():

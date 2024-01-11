@@ -3,6 +3,8 @@ class Reservation:
 
     def __init__(self, movie_id, showtime, seat_number, email):
 
+        # checking format of values and if they are not empty
+        # raising ValueError for each part
         if not isinstance(movie_id, str) or not movie_id:
             raise ValueError("Invalid movie_id! Please provide a non-empty string.")
         
