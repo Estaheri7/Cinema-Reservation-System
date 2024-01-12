@@ -37,7 +37,7 @@ The Cinema Reservation System is an open-source project designed to facilitate t
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/your-username/cinema-reservation-system.git
+    git clone https://github.com/Estaheri7/Cinema-Reservation-System.git
     cd cinema-reservation-system
     ```
 
